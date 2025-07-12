@@ -49,7 +49,7 @@ public class TopicoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DatosListadoTopico>> listadoTopicos(@PageableDefault(size = 2) Pageable paginacion) {
+    public ResponseEntity<Page<DatosListadoTopico>> listadoMedicos(@PageableDefault(size = 2) Pageable paginacion) {
         return ResponseEntity.ok(topicoRepositorio.findByActivoTrue(paginacion).map(DatosListadoTopico::new));
     }
 
@@ -71,13 +71,5 @@ public class TopicoController {
         );
 
         return ResponseEntity.ok(respuesta);
-    }
-
-    @DeleteMapping("/{id}")
-    @Transactional
-    public ResponseEntity eliminarTopico(@PathVariable Long id) {
-        Topico topico = topicoRepositorio.getReferenceById(id);
-        topico.setActivo(false);
-        return ResponseEntity.noContent().build();
     }
 }
